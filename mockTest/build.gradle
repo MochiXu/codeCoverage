@@ -1,6 +1,5 @@
-plugins {
-    id 'java'
-}
+apply plugin: 'java'
+//apply plugin: 'jacoco'
 group 'org.example'
 version '1.0-SNAPSHOT'
 
@@ -16,8 +15,36 @@ dependencies {
 }
 
 test {
+//    jacoco {
+//        destinationFile = layout.buildDirectory.file('jacoco/jacocoTest.exec').get().asFile
+//        classDumpDir = layout.buildDirectory.dir('jacoco/classpathdumps').get().asFile
+//    }
 //    useJUnitPlatform()
+//    finalizedBy jacocoTestReport // report is always generated after tests run
     testLogging {
         events "passed", "skipped", "failed"
     }
 }
+
+//jacoco {
+//    toolVersion = "0.8.7"
+////    reportsDir = file("$buildDir/customJacocoReportDir")
+////    reportsDirectory.set(layout.buildDirectory.dir("customJacocoReportDir"))
+//    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+//}
+//jacocoTestReport {
+//    dependsOn test // tests are required to run before generating the report
+//    reports {
+//        xml.required.set(true)
+//        xml.outputLocation.set(layout.buildDirectory.file("jacocoXml/report.xml"))
+//        csv.required = false
+//        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+//    }
+//    afterEvaluate {
+//        getClassDirectories().setFrom(
+//                classDirectories.files.collect {
+//                    fileTree(dir: it, exclude: [''])
+//                }
+//        )
+//    }
+//}

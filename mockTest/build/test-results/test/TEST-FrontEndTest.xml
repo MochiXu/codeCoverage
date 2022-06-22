@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="FrontEndTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-06-22T14:56:40" hostname="192.168.0.101" time="0.419">
+  <properties/>
+  <testcase name="sendAddTaskResultNormalTask" classname="FrontEndTest" time="0.407"/>
+  <testcase name="sendAddTaskResultNormalTask2" classname="FrontEndTest" time="0.004"/>
+  <testcase name="sendAddTaskResultNormalTask3" classname="FrontEndTest" time="0.005"/>
+  <testcase name="sendAddTaskResultNormalTask4" classname="FrontEndTest" time="0.001"/>
+  <testcase name="sendAddTaskResultNormalTask5" classname="FrontEndTest" time="0.001"/>
+  <system-out><![CDATA[this Task is default task
+haha
+this Task has changed taskNum
+haha
+this Task has been mocked totaly!
+haha
+this Task has been mocked totaly!
+haha
+this Task has been mocked totaly!
+haha
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
