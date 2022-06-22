@@ -1,14 +1,14 @@
-import static org.mockito.Mockito.when;
-import static org.powermock.api.support.membermodification.MemberModifier.suppress;
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
+import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(FrontEnd.class)
+@PrepareForTest({FrontEnd.class,Task.class,MyFinalClass.class})
 public class FrontEndTest {
 
 
@@ -19,24 +19,87 @@ public class FrontEndTest {
         //准备数据
         Task task = new Task();
 
-        IdMapper idMapper= PowerMockito.mock(IdMapper.class);
-        BackendConfig.GatewayConfig gatewayConfig = PowerMockito.mock(BackendConfig.GatewayConfig.class);
+        IdMapper idMapper= mock(IdMapper.class);
+        BackendConfig.GatewayConfig gatewayConfig = mock(BackendConfig.GatewayConfig.class);
         FrontEnd frontEnd=new FrontEnd(idMapper,gatewayConfig);
-//        frontEnd.sendAddTaskResult(task);
-        MyFinalClass f=PowerMockito.mock(MyFinalClass.class);
+        frontEnd.sendAddTaskResult(task);
+        MyFinalClass f= mock(MyFinalClass.class);
         when(f.getTest()).thenReturn("hello");
         when(f.getUrl()).thenReturn("haha");
         System.out.println(f.getUrl());
     }
 
-//    @Mock
-//    Task task2;
-//    @Test
-//    public void sendAddTaskResultOtherTask() {
-//        //准备数据
-//        when(task2.getTaskID()).thenReturn(3);
-////        when(Task.TaskName).thenReturn("mockTaskName");
-//
-////        frontEnd.sendAddTaskResult(task2);
-//    }
+    @Test
+    public void sendAddTaskResultNormalTask2() {
+//        frontEnd=new FrontEnd(false);
+
+        //准备数据
+        Task task = mock(Task.class);
+        when(task.getTaskID()).thenReturn(9);
+        IdMapper idMapper= mock(IdMapper.class);
+        BackendConfig.GatewayConfig gatewayConfig = mock(BackendConfig.GatewayConfig.class);
+        FrontEnd frontEnd=new FrontEnd(idMapper,gatewayConfig);
+        frontEnd.sendAddTaskResult(task);
+        MyFinalClass f= mock(MyFinalClass.class);
+        when(f.getTest()).thenReturn("hello");
+        when(f.getUrl()).thenReturn("haha");
+        System.out.println(f.getUrl());
+    }
+
+    @Test
+    public void sendAddTaskResultNormalTask3() {
+//        frontEnd=new FrontEnd(false);
+
+        //准备数据
+        Task task = mock(Task.class);
+        when(task.getTaskID()).thenReturn(10);
+
+        IdMapper idMapper= mock(IdMapper.class);
+        BackendConfig.GatewayConfig gatewayConfig = mock(BackendConfig.GatewayConfig.class);
+        FrontEnd frontEnd=new FrontEnd(idMapper,gatewayConfig);
+        frontEnd.sendAddTaskResult(task);
+        MyFinalClass f= mock(MyFinalClass.class);
+        when(f.getTest()).thenReturn("hello");
+        when(f.getUrl()).thenReturn("haha");
+        System.out.println(f.getUrl());
+        Mockito.verify(f,Mockito.times(0)).getTest();
+    }
+
+    @Test
+    public void sendAddTaskResultNormalTask4() {
+//        frontEnd=new FrontEnd(false);
+
+        //准备数据
+        Task task = mock(Task.class);
+        when(task.getTaskID()).thenReturn(13);
+
+        IdMapper idMapper= mock(IdMapper.class);
+        BackendConfig.GatewayConfig gatewayConfig = mock(BackendConfig.GatewayConfig.class);
+        FrontEnd frontEnd=new FrontEnd(idMapper,gatewayConfig);
+        frontEnd.sendAddTaskResult(task);
+        MyFinalClass f= mock(MyFinalClass.class);
+        when(f.getTest()).thenReturn("hello");
+        when(f.getUrl()).thenReturn("haha");
+        System.out.println(f.getUrl());
+        Mockito.verify(f,Mockito.times(0)).getTest();
+    }
+
+    @Test
+    public void sendAddTaskResultNormalTask5() {
+//        frontEnd=new FrontEnd(false);
+
+        //准备数据
+        Task task = mock(Task.class);
+        when(task.getTaskID()).thenReturn(16);
+
+        IdMapper idMapper= mock(IdMapper.class);
+        BackendConfig.GatewayConfig gatewayConfig = mock(BackendConfig.GatewayConfig.class);
+        FrontEnd frontEnd=new FrontEnd(idMapper,gatewayConfig);
+        frontEnd.sendAddTaskResult(task);
+        MyFinalClass f= mock(MyFinalClass.class);
+        when(f.getTest()).thenReturn("hello");
+        when(f.getUrl()).thenReturn("haha");
+        System.out.println(f.getUrl());
+        Mockito.verify(f,Mockito.times(0)).getTest();
+    }
 }

@@ -1,8 +1,5 @@
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +11,6 @@ import java.util.stream.Collectors;
 
 
 public class BackendConfig {
-    private static final Logger logger = LoggerFactory.getLogger(BackendConfig.class);
 
     private ServerConfig server;
     private GatewayConfig gateway;

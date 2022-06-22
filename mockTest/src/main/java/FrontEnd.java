@@ -18,7 +18,7 @@ public class FrontEnd {
         if (task.getTaskID() == 0) {
             System.out.println("this Task is default task");
         } else {
-            if (Task.TaskName.equals("taskName")) {
+            if (task.getTaskID() == 9) {
                 System.out.println("this Task has changed taskNum");
             } else {
                 System.out.println("this Task has been mocked totaly!");
