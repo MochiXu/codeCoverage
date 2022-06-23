@@ -1,5 +1,5 @@
 apply plugin: 'java'
-//apply plugin: 'jacoco'
+apply plugin: 'jacoco'
 group 'org.example'
 version '1.0-SNAPSHOT'
 
@@ -14,32 +14,64 @@ dependencies {
     testImplementation 'org.powermock:powermock-api-mockito2:2.0.9'
 }
 
+
+task instrument(dependsOn: [classes, project.configurations.jacocoAnt]) {
+
+    inputs.files classes.outputs.files
+    File outputDir = new File(project.buildDir, 'instrumentedClasses')
+    outputs.dir outputDir
+    doFirst {
+        project.delete(outputDir)
+        ant.taskdef(
+                resource: 'org/jacoco/ant/antlib.xml',
+                classpath: project.configurations.jacocoAnt.asPath,
+                uri: 'jacoco'
+        )
+        def instrumented = false
+        if (file(sourceSets.main.java.outputDir).exists()) {
+            def instrumentedClassedDir = "${outputDir}/${sourceSets.main.java}"
+            ant.'jacoco:instrument'(destdir: instrumentedClassedDir) {
+                fileset(dir: sourceSets.main.java.outputDir, includes: '**/*.class')
+            }
+            //Replace the classes dir in the test classpath with the instrumented one
+            sourceSets.test.runtimeClasspath -= files(sourceSets.main.java.outputDir)
+            sourceSets.test.runtimeClasspath += files(instrumentedClassedDir)
+            instrumented = true
+        }
+        if (instrumented) {
+            test.jvmArgs += '-noverify'
+        }
+    }
+}
 test {
-//    jacoco {
-//        destinationFile = layout.buildDirectory.file('jacoco/jacocoTest.exec').get().asFile
-//        classDumpDir = layout.buildDirectory.dir('jacoco/classpathdumps').get().asFile
-//    }
+    dependsOn(instrument)
+    jacoco{
+        destinationFile = file("$buildDir/jacoco/jacoco.exec")
+        classDumpDir = file("$buildDir/jacoco/classpathdumps")
+    }
+
 //    useJUnitPlatform()
-//    finalizedBy jacocoTestReport // report is always generated after tests run
+    finalizedBy jacocoTestReport // report is always generated after tests run
     testLogging {
         events "passed", "skipped", "failed"
     }
 }
 
-//jacoco {
-//    toolVersion = "0.8.7"
-////    reportsDir = file("$buildDir/customJacocoReportDir")
-////    reportsDirectory.set(layout.buildDirectory.dir("customJacocoReportDir"))
-//    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
-//}
-//jacocoTestReport {
-//    dependsOn test // tests are required to run before generating the report
-//    reports {
-//        xml.required.set(true)
-//        xml.outputLocation.set(layout.buildDirectory.file("jacocoXml/report.xml"))
-//        csv.required = false
-//        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
-//    }
+jacoco {
+//    offlineInstrumentation true
+    toolVersion = "0.8.7"
+//    reportsDir = file("$buildDir/customJacocoReportDir")
+//    reportsDirectory.set(layout.buildDirectory.dir("customJacocoReportDir"))
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required.set(true)
+        xml.outputLocation.set(layout.buildDirectory.file("jacocoXml/report.xml"))
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
 //    afterEvaluate {
 //        getClassDirectories().setFrom(
 //                classDirectories.files.collect {
@@ -47,4 +79,7 @@ test {
 //                }
 //        )
 //    }
-//}
+}
+
+
+

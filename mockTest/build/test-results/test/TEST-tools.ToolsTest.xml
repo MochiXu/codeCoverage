@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tools.ToolsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-06-22T14:56:40" hostname="192.168.0.101" time="0.001">
+<testsuite name="tools.ToolsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-06-23T02:41:56" hostname="mochixdeMacBook-Pro.local" time="0.0">
   <properties/>
-  <testcase name="getSomething" classname="tools.ToolsTest" time="0.001"/>
+  <testcase name="getSomething" classname="tools.ToolsTest" time="0.0"/>
   <system-out><![CDATA[-- test Junit 4
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

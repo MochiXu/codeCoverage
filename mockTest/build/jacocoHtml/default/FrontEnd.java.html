@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FrontEnd.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mockTest</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">FrontEnd.java</span></div><h1>FrontEnd.java</h1><pre class="source lang-java linenums">
+
+public class FrontEnd {
+
+    private static final int count = 3;
+    private static final String token = &quot;e59afdef516e53b32120ce0c2aff8ff8faf516b8&quot;;
+
+    private final IdMapper idMapper;
+    private final BackendConfig.GatewayConfig gatewayConfig;
+
+
+<span class="fc" id="L12">    public FrontEnd(IdMapper idMapper, BackendConfig.GatewayConfig gatewayConfig) {</span>
+<span class="fc" id="L13">        this.idMapper = idMapper;</span>
+<span class="fc" id="L14">        this.gatewayConfig = gatewayConfig;</span>
+<span class="fc" id="L15">    }</span>
+
+    public void sendAddTaskResult(Task task) {
+<span class="fc bfc" id="L18" title="All 2 branches covered.">        if (task.getTaskID() == 0) {</span>
+<span class="fc" id="L19">            System.out.println(&quot;this Task is default task&quot;);</span>
+        } else {
+<span class="fc bfc" id="L21" title="All 2 branches covered.">            if (task.getTaskID() == 9) {</span>
+<span class="fc" id="L22">                System.out.println(&quot;this Task has changed taskNum&quot;);</span>
+            } else {
+<span class="fc" id="L24">                System.out.println(&quot;this Task has been mocked totaly!&quot;);</span>
+            }
+        }
+<span class="fc" id="L27">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

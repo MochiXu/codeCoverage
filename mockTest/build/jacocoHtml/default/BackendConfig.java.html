@@ -1,0 +1,1431 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BackendConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mockTest</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">BackendConfig.java</span></div><h1>BackendConfig.java</h1><pre class="source lang-java linenums">
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
+
+
+<span class="nc" id="L13">public class BackendConfig {</span>
+
+    private ServerConfig server;
+    private GatewayConfig gateway;
+    private ControllerConfig controller;
+    private FptConfig fpt;
+    private PalmConfig palm;
+    private boolean useInternalBarcode;
+    private boolean useScheduler;
+    private boolean useStorageFailOver;
+    private boolean useFileCache;
+    private String dcName;
+    private int weedDiffRackCount;
+    private boolean useOpenCV;
+    private boolean useRedisCluster;
+
+    public ServerConfig getServer() {
+<span class="nc" id="L30">        return server;</span>
+    }
+
+    public void setServer(ServerConfig server) {
+<span class="nc" id="L34">        this.server = server;</span>
+<span class="nc" id="L35">    }</span>
+
+    public GatewayConfig getGateway() {
+<span class="nc" id="L38">        return gateway;</span>
+    }
+
+    public void setGateway(GatewayConfig gateway) {
+<span class="nc" id="L42">        this.gateway = gateway;</span>
+<span class="nc" id="L43">    }</span>
+
+    public ControllerConfig getController() {
+<span class="nc" id="L46">        return controller;</span>
+    }
+
+    public void setController(ControllerConfig controller) {
+<span class="nc" id="L50">        this.controller = controller;</span>
+<span class="nc" id="L51">    }</span>
+
+    public FptConfig getFpt() {
+<span class="nc" id="L54">        return fpt;</span>
+    }
+
+    public void setFpt(FptConfig fpt) {
+<span class="nc" id="L58">        this.fpt = fpt;</span>
+<span class="nc" id="L59">    }</span>
+
+<span class="nc" id="L61">    public PalmConfig getPalm() { return palm; }</span>
+
+<span class="nc" id="L63">    public void setPalm(PalmConfig palm) { this.palm = palm; }</span>
+
+    public boolean isUseInternalBarcode() {
+<span class="nc" id="L66">        return useInternalBarcode;</span>
+    }
+
+    public void setUseInternalBarcode(boolean useInternalBarcode) {
+<span class="nc" id="L70">        this.useInternalBarcode = useInternalBarcode;</span>
+<span class="nc" id="L71">    }</span>
+
+    public boolean isUseScheduler() {
+<span class="nc" id="L74">        return useScheduler;</span>
+    }
+
+    public void setUseScheduler(boolean useScheduler) {
+<span class="nc" id="L78">        this.useScheduler = useScheduler;</span>
+<span class="nc" id="L79">    }</span>
+
+<span class="nc" id="L81">    public boolean isUseStorageFailOver() { return useStorageFailOver; }</span>
+
+    public void setUseStorageFailOver(boolean useStorageFailOver) {
+<span class="nc" id="L84">        this.useStorageFailOver = useStorageFailOver;</span>
+<span class="nc" id="L85">    }</span>
+
+<span class="nc" id="L87">    public boolean isUseFileCache() { return useFileCache; }</span>
+
+    public void setUseFileCache(boolean useFileCache) {
+<span class="nc" id="L90">        this.useFileCache = useFileCache;</span>
+<span class="nc" id="L91">    }</span>
+
+<span class="nc" id="L93">    public String getDcName() { return dcName; }</span>
+
+<span class="nc" id="L95">    public void setDcName(String dcName) { this.dcName = dcName; }</span>
+
+<span class="nc" id="L97">    public int getWeedDiffRackCount() { return weedDiffRackCount; }</span>
+
+<span class="nc" id="L99">    public void setWeedDiffRackCount(int weedDiffRackCount) { this.weedDiffRackCount = weedDiffRackCount; }</span>
+
+    public boolean isUseOpenCV() {
+<span class="nc" id="L102">        return useOpenCV;</span>
+    }
+
+    public void setUseOpenCV(boolean useOpenCV) {
+<span class="nc" id="L106">        this.useOpenCV = useOpenCV;</span>
+<span class="nc" id="L107">    }</span>
+
+    public static class Segments {
+        private final List&lt;Integer&gt; tenprint;
+        private final List&lt;Integer&gt; latent;
+
+<span class="nc" id="L113">        public Segments(List&lt;Integer&gt; tenprint, List&lt;Integer&gt; latent) {</span>
+<span class="nc" id="L114">            this.tenprint = tenprint;</span>
+<span class="nc" id="L115">            this.latent = latent;</span>
+<span class="nc" id="L116">        }</span>
+
+        public List&lt;Integer&gt; getTenprint() {
+<span class="nc" id="L119">            return tenprint;</span>
+        }
+
+        public List&lt;Integer&gt; getLatent() {
+<span class="nc" id="L123">            return latent;</span>
+        }
+
+        @Override
+        public String toString() {
+<span class="nc" id="L128">            return String.format(&quot;{tenprint: %s, latent: %s}&quot;, tenprint, latent);</span>
+        }
+    }
+
+<span class="nc" id="L132">    public static class SegmentMemSize {</span>
+
+    }
+
+<span class="nc" id="L136">    public static class MatchingServerConfig {</span>
+        private String host;
+        // only used in docker-compose
+        private String dataHost;
+        private int port;
+        private int dataServerPort;
+        private String index;
+        private String cluster;
+        private Map&lt;String, Segments&gt; segments;
+
+        public String getHost() {
+<span class="nc" id="L147">            return host;</span>
+        }
+
+        public void setHost(String host) {
+<span class="nc" id="L151">            this.host = host;</span>
+<span class="nc" id="L152">        }</span>
+
+        // only used in docker-compose
+        public String getDataHost() {
+<span class="nc" id="L156">            return dataHost;</span>
+        }
+
+        public void setDataHost(String dataHost) {
+<span class="nc" id="L160">            this.dataHost = dataHost;</span>
+<span class="nc" id="L161">        }</span>
+
+        public int getPort() {
+<span class="nc" id="L164">            return port;</span>
+        }
+
+        public void setPort(int port) {
+<span class="nc" id="L168">            this.port = port;</span>
+<span class="nc" id="L169">        }</span>
+
+        public int getDataServerPort() {
+<span class="nc" id="L172">            return dataServerPort;</span>
+        }
+
+        public void setDataServerPort(int dataServerPort) {
+<span class="nc" id="L176">            this.dataServerPort = dataServerPort;</span>
+<span class="nc" id="L177">        }</span>
+
+        public String getIndex() {
+<span class="nc" id="L180">            return index;</span>
+        }
+
+        public void setIndex(String index) {
+<span class="nc" id="L184">            this.index = index;</span>
+<span class="nc" id="L185">        }</span>
+
+
+
+
+
+        public Map&lt;String, Segments&gt; getSegments() {
+<span class="nc" id="L192">            return segments;</span>
+        }
+
+        public void setSegmentsFromSegmentMap(Map&lt;String, Segments&gt; segments) {
+<span class="nc" id="L196">            this.segments = segments;</span>
+<span class="nc" id="L197">        }</span>
+
+        public void setSegments(Map&lt;String, Object&gt; segments) {
+<span class="nc" id="L200">            this.segments = new ConcurrentHashMap&lt;&gt;();</span>
+<span class="nc" id="L201">            segments.forEach((k, v) -&gt; {</span>
+<span class="nc" id="L202">                HashMap&lt;String, List&lt;Integer&gt;&gt; value = (HashMap&lt;String, List&lt;Integer&gt;&gt;) v;</span>
+<span class="nc" id="L203">                this.segments.put(k, new Segments(new CopyOnWriteArrayList&lt;&gt;(value.get(&quot;tenprint&quot;)),</span>
+<span class="nc" id="L204">                        new CopyOnWriteArrayList&lt;&gt;(value.get(&quot;latent&quot;))));</span>
+<span class="nc" id="L205">            });</span>
+<span class="nc" id="L206">        }</span>
+
+
+
+
+        public String getCluster() {
+<span class="nc" id="L212">            return cluster;</span>
+        }
+
+        public void setCluster(String cluster) {
+<span class="nc" id="L216">            this.cluster = cluster;</span>
+<span class="nc" id="L217">        }</span>
+    }
+
+<span class="nc" id="L220">    public static class ServerConfig {</span>
+        private String coreRedis;
+        private List&lt;String&gt; coreRedisSentinels;
+        private String coreRedisPassword;
+        private String taskRedis;
+        private List&lt;String&gt; taskRedisSentinels;
+        private String taskRedisPassword;
+        private String cacheRedis;
+        private String weed;
+        private String cassandra;
+        private List&lt;String&gt; cassandraHosts;
+        private String cassandraUser;
+        private String cassandraPassword;
+        private String gateway;
+        private List&lt;String&gt; controllers;
+        private String controllerPrometheus;
+        private String gatewayPrometheus;
+        private List&lt;String&gt; extractionServers;
+        private List&lt;String&gt; extractionFullPalmServers;
+        private List&lt;String&gt; imageProcessingServers;
+        private List&lt;MatchingServerConfig&gt; matchingServers;
+        private Map&lt;String, String&gt; dataServers;
+        private List&lt;String&gt; extractionTenprintServers;
+        private List&lt;String&gt; extractionLatentServers;
+        private List&lt;String&gt; confirmationServers;
+        private List&lt;String&gt; fptServers;
+        private List&lt;String&gt; fptWinServers;
+        private String taskResultServer;
+        private String openAPIServer;
+        private String consulServer;
+        private int sshPort;
+
+        public String getCoreRedis() {
+<span class="nc" id="L253">            return coreRedis;</span>
+        }
+
+        public void setCoreRedis(String coreRedis) {
+<span class="nc" id="L257">            this.coreRedis = coreRedis;</span>
+<span class="nc" id="L258">        }</span>
+
+        public List&lt;String&gt; getCoreRedisSentinels() {
+<span class="nc" id="L261">            return coreRedisSentinels;</span>
+        }
+
+        public void setCoreRedisSentinels(List&lt;String&gt; coreRedisSentinels) {
+<span class="nc" id="L265">            this.coreRedisSentinels = coreRedisSentinels;</span>
+<span class="nc" id="L266">        }</span>
+
+        public String getTaskRedis() {
+<span class="nc" id="L269">            return taskRedis;</span>
+        }
+
+        public void setTaskRedis(String taskRedis) {
+<span class="nc" id="L273">            this.taskRedis = taskRedis;</span>
+<span class="nc" id="L274">        }</span>
+
+<span class="nc" id="L276">        public String getCacheRedis() { return cacheRedis; }</span>
+
+<span class="nc" id="L278">        public void setCacheRedis(String cacheRedis) { this.cacheRedis = cacheRedis; }</span>
+
+        public List&lt;String&gt; getTaskRedisSentinels() {
+<span class="nc" id="L281">            return taskRedisSentinels;</span>
+        }
+
+        public void setTaskRedisSentinels(List&lt;String&gt; taskRedisSentinels) {
+<span class="nc" id="L285">            this.taskRedisSentinels = taskRedisSentinels;</span>
+<span class="nc" id="L286">        }</span>
+
+        public String getWeed() {
+<span class="nc" id="L289">            return weed;</span>
+        }
+
+        public void setWeed(String weed) {
+<span class="nc" id="L293">            this.weed = weed;</span>
+<span class="nc" id="L294">        }</span>
+
+        public String getCassandra() {
+<span class="nc" id="L297">            return cassandra;</span>
+        }
+
+        public void setCassandra(String cassandra) {
+<span class="nc" id="L301">            this.cassandra = cassandra;</span>
+<span class="nc" id="L302">        }</span>
+
+<span class="nc" id="L304">        public List&lt;String&gt; getCassandraHosts() { return cassandraHosts; }</span>
+
+        public void setCassandraHosts(List&lt;String&gt; cassandraHosts) {
+<span class="nc" id="L307">            this.cassandraHosts = cassandraHosts;</span>
+<span class="nc" id="L308">        }</span>
+
+        public String getCassandraUser() {
+<span class="nc" id="L311">            return cassandraUser;</span>
+        }
+
+        public void setCassandraUser(String cassandraUser) {
+<span class="nc" id="L315">            this.cassandraUser = cassandraUser;</span>
+<span class="nc" id="L316">        }</span>
+
+        public String getCassandraPassword() {
+<span class="nc" id="L319">            return cassandraPassword;</span>
+        }
+
+        public void setCassandraPassword(String cassandraPassword) {
+<span class="nc" id="L323">            this.cassandraPassword = cassandraPassword;</span>
+<span class="nc" id="L324">        }</span>
+
+        public List&lt;String&gt; getExtractionServers() {
+<span class="nc" id="L327">            return extractionServers;</span>
+        }
+
+        public void setExtractionServers(List&lt;String&gt; extractionServers) {
+<span class="nc" id="L331">            this.extractionServers = extractionServers;</span>
+<span class="nc" id="L332">        }</span>
+
+        public List&lt;String&gt; getExtractionFullPalmServers() {
+<span class="nc" id="L335">            return extractionFullPalmServers;</span>
+        }
+
+        public void setExtractionFullPalmServers(List&lt;String&gt; extractionFullPalmServers) {
+<span class="nc" id="L339">            this.extractionFullPalmServers = extractionFullPalmServers;</span>
+<span class="nc" id="L340">        }</span>
+
+        public List&lt;MatchingServerConfig&gt; getMatchingServers() {
+<span class="nc" id="L343">            return matchingServers;</span>
+        }
+
+        public void setMatchingServers(List&lt;MatchingServerConfig&gt; matchingServers) {
+<span class="nc" id="L347">            this.matchingServers = matchingServers;</span>
+<span class="nc" id="L348">        }</span>
+
+        public Map&lt;String, String&gt; getDataServers() {
+<span class="nc" id="L351">            return dataServers;</span>
+        }
+
+        public void setDataServers(Map&lt;String, Object&gt; dataServers) {
+<span class="nc" id="L355">            this.dataServers = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L356">            dataServers.forEach((k, v) -&gt; this.dataServers.put(k, (String) v));</span>
+<span class="nc" id="L357">        }</span>
+
+        public List&lt;String&gt; getExtractionTenprintServers() {
+<span class="nc" id="L360">            return extractionTenprintServers;</span>
+        }
+
+        public void setExtractionTenprintServers(List&lt;String&gt; extractionTenprintServers) {
+<span class="nc" id="L364">            this.extractionTenprintServers = extractionTenprintServers;</span>
+<span class="nc" id="L365">        }</span>
+
+        public List&lt;String&gt; getExtractionLatentServers() {
+<span class="nc" id="L368">            return extractionLatentServers;</span>
+        }
+
+        public void setExtractionLatentServers(List&lt;String&gt; extractionLatentServers) {
+<span class="nc" id="L372">            this.extractionLatentServers = extractionLatentServers;</span>
+<span class="nc" id="L373">        }</span>
+
+        public List&lt;String&gt; getFptServers() {
+<span class="nc" id="L376">            return fptServers;</span>
+        }
+
+        public void setFptServers(List&lt;String&gt; fptServers) {
+<span class="nc" id="L380">            this.fptServers = fptServers;</span>
+<span class="nc" id="L381">        }</span>
+
+        public List&lt;String&gt; getFptWinServers() {
+<span class="nc" id="L384">            return fptWinServers;</span>
+        }
+
+        public void setFptWinServers(List&lt;String&gt; fptWinServers) {
+<span class="nc" id="L388">            this.fptWinServers = fptWinServers;</span>
+<span class="nc" id="L389">        }</span>
+
+        public List&lt;String&gt; getConfirmationServers() {
+<span class="nc" id="L392">            return confirmationServers;</span>
+        }
+
+        public void setConfirmationServers(List&lt;String&gt; confirmationServers) {
+<span class="nc" id="L396">            this.confirmationServers = confirmationServers;</span>
+<span class="nc" id="L397">        }</span>
+
+        public String getConsulServer() {
+<span class="nc" id="L400">            return consulServer;</span>
+        }
+
+        public void setConsulServer(String consulServer) {
+<span class="nc" id="L404">            this.consulServer = consulServer;</span>
+<span class="nc" id="L405">        }</span>
+
+        public String getGateway() {
+<span class="nc" id="L408">            return gateway;</span>
+        }
+
+        public void setGateway(String gateway) {
+<span class="nc" id="L412">            this.gateway = gateway;</span>
+<span class="nc" id="L413">        }</span>
+
+        public String getGatewayPrometheus() {
+<span class="nc" id="L416">            return gatewayPrometheus;</span>
+        }
+
+        public void setGatewayPrometheus(String gatewayPrometheus) {
+<span class="nc" id="L420">            this.gatewayPrometheus = gatewayPrometheus;</span>
+<span class="nc" id="L421">        }</span>
+
+        public List&lt;String&gt; getControllers() {
+<span class="nc" id="L424">            return controllers;</span>
+        }
+
+        public void setControllers(List&lt;String&gt; controllers) {
+<span class="nc" id="L428">            this.controllers = controllers;</span>
+<span class="nc" id="L429">        }</span>
+
+        public String getControllerPrometheus() {
+<span class="nc" id="L432">            return controllerPrometheus;</span>
+        }
+
+        public void setControllerPrometheus(String controllerPrometheus) {
+<span class="nc" id="L436">            this.controllerPrometheus = controllerPrometheus;</span>
+<span class="nc" id="L437">        }</span>
+
+        public String getTaskResultServer() {
+<span class="nc" id="L440">            return taskResultServer;</span>
+        }
+
+        public void setTaskResultServer(String taskResultServer2) {
+<span class="nc" id="L444">            this.taskResultServer = taskResultServer2;</span>
+<span class="nc" id="L445">        }</span>
+
+        public String getOpenAPIServer() {
+<span class="nc" id="L448">            return openAPIServer;</span>
+        }
+
+        public void setOpenAPIServer(String openAPIServer) {
+<span class="nc" id="L452">            this.openAPIServer = openAPIServer;</span>
+<span class="nc" id="L453">        }</span>
+
+        public String getCoreRedisPassword() {
+<span class="nc" id="L456">            return coreRedisPassword;</span>
+        }
+
+        public void setCoreRedisPassword(String coreRedisPassword) {
+<span class="nc" id="L460">            this.coreRedisPassword = coreRedisPassword;</span>
+<span class="nc" id="L461">        }</span>
+
+        public String getTaskRedisPassword() {
+<span class="nc" id="L464">            return taskRedisPassword;</span>
+        }
+
+        public void setTaskRedisPassword(String taskRedisPassword) {
+<span class="nc" id="L468">            this.taskRedisPassword = taskRedisPassword;</span>
+<span class="nc" id="L469">        }</span>
+
+        public void setImageProcessingServers(List&lt;String&gt; imageProcessingServers) {
+<span class="nc" id="L472">            this.imageProcessingServers = imageProcessingServers;</span>
+<span class="nc" id="L473">        }</span>
+
+        public List&lt;String&gt; getImageProcessingServers() {
+<span class="nc" id="L476">            return imageProcessingServers;</span>
+        }
+
+    }
+
+<span class="nc" id="L481">    public static class GatewayConfig {</span>
+        private int minTenprintFinger;
+        private int maxTenprintFinger;
+        private int minLatentFinger;
+        private int maxLatentFinger;
+        private int addTaskPriority;
+        private boolean mirrorMatch;
+        private boolean advancedMixed;
+        private double ttScoreThreshold;
+        private double patrolTtScoreThreshold;
+        private List&lt;String&gt; mirrorPrefixes;
+        private int maxPendingTasks;
+        private boolean wcsyFrontend;
+        private boolean matchConfirmation;
+        private boolean ttLrMatch;
+        private int maxMessageSize;
+        private int numThreads;
+        private int batchUpdateSize;
+
+        public int getBatchUpdateSize() {
+<span class="nc" id="L501">            return batchUpdateSize;</span>
+        }
+
+        public void setBatchUpdateSize(int batchUpdateSize) {
+<span class="nc" id="L505">            this.batchUpdateSize = batchUpdateSize;</span>
+<span class="nc" id="L506">        }</span>
+
+        public int getMinTenprintFinger() {
+<span class="nc" id="L509">            return minTenprintFinger;</span>
+        }
+
+        public void setMinTenprintFinger(int minTenprintFinger) {
+<span class="nc" id="L513">            this.minTenprintFinger = minTenprintFinger;</span>
+<span class="nc" id="L514">        }</span>
+
+        public int getMaxTenprintFinger() {
+<span class="nc" id="L517">            return maxTenprintFinger;</span>
+        }
+
+        public void setMaxTenprintFinger(int maxTenprintFinger) {
+<span class="nc" id="L521">            this.maxTenprintFinger = maxTenprintFinger;</span>
+<span class="nc" id="L522">        }</span>
+
+        public int getMinLatentFinger() {
+<span class="nc" id="L525">            return minLatentFinger;</span>
+        }
+
+        public void setMinLatentFinger(int minLatentFinger) {
+<span class="nc" id="L529">            this.minLatentFinger = minLatentFinger;</span>
+<span class="nc" id="L530">        }</span>
+
+        public int getMaxLatentFinger() {
+<span class="nc" id="L533">            return maxLatentFinger;</span>
+        }
+
+        public void setMaxLatentFinger(int maxLatentFinger) {
+<span class="nc" id="L537">            this.maxLatentFinger = maxLatentFinger;</span>
+<span class="nc" id="L538">        }</span>
+
+        public int getAddTaskPriority() {
+<span class="nc" id="L541">            return addTaskPriority;</span>
+        }
+
+        public void setAddTaskPriority(int addTaskPriority) {
+<span class="nc" id="L545">            this.addTaskPriority = addTaskPriority;</span>
+<span class="nc" id="L546">        }</span>
+
+        public boolean isMirrorMatch() {
+<span class="nc" id="L549">            return mirrorMatch;</span>
+        }
+
+        public void setMirrorMatch(boolean mirrorMatch) {
+<span class="nc" id="L553">            this.mirrorMatch = mirrorMatch;</span>
+<span class="nc" id="L554">        }</span>
+
+        public boolean isAdvancedMixed() {
+<span class="nc" id="L557">            return advancedMixed;</span>
+        }
+
+        public void setAdvancedMixed(boolean advancedMixed) {
+<span class="nc" id="L561">            this.advancedMixed = advancedMixed;</span>
+<span class="nc" id="L562">        }</span>
+
+        public double getTtScoreThreshold() {
+<span class="nc" id="L565">            return ttScoreThreshold;</span>
+        }
+
+        public void setTtScoreThreshold(double ttScoreThreshold) {
+<span class="nc" id="L569">            this.ttScoreThreshold = ttScoreThreshold;</span>
+<span class="nc" id="L570">        }</span>
+
+<span class="nc" id="L572">        public void setPatrolTtScoreThreshold(double patrolTtScoreThreshold) { this.patrolTtScoreThreshold = patrolTtScoreThreshold; }</span>
+
+<span class="nc" id="L574">        public double getPatrolTtScoreThreshold() { return patrolTtScoreThreshold; }</span>
+
+        public List&lt;String&gt; getMirrorPrefixes() {
+<span class="nc" id="L577">            return mirrorPrefixes;</span>
+        }
+
+        public void setMirrorPrefixes(List&lt;String&gt; mirrorPrefixes) {
+<span class="nc" id="L581">            this.mirrorPrefixes = mirrorPrefixes;</span>
+<span class="nc" id="L582">        }</span>
+
+        public int getMaxPendingTasks() {
+<span class="nc" id="L585">            return maxPendingTasks;</span>
+        }
+
+        public void setMaxPendingTasks(int maxPendingTasks) {
+<span class="nc" id="L589">            this.maxPendingTasks = maxPendingTasks;</span>
+<span class="nc" id="L590">        }</span>
+
+        public boolean isWcsyFrontend() {
+<span class="nc" id="L593">            return wcsyFrontend;</span>
+        }
+
+        public void setWcsyFrontend(boolean wcsyFrontend) {
+<span class="nc" id="L597">            this.wcsyFrontend = wcsyFrontend;</span>
+<span class="nc" id="L598">        }</span>
+
+        public boolean isMatchConfirmation() {
+<span class="nc" id="L601">            return matchConfirmation;</span>
+        }
+
+        public void setMatchConfirmation(boolean matchConfirmation) {
+<span class="nc" id="L605">            this.matchConfirmation = matchConfirmation;</span>
+<span class="nc" id="L606">        }</span>
+
+        public boolean isTtLrMatch() {
+<span class="nc" id="L609">            return ttLrMatch;</span>
+        }
+
+        public void setTtLrMatch(boolean ttLrMatch) {
+<span class="nc" id="L613">            this.ttLrMatch = ttLrMatch;</span>
+<span class="nc" id="L614">        }</span>
+
+        public int getMaxMessageSize() {
+<span class="nc" id="L617">            return maxMessageSize;</span>
+        }
+
+        public void setMaxMessageSize(int maxMessageSize) {
+<span class="nc" id="L621">            this.maxMessageSize = maxMessageSize;</span>
+<span class="nc" id="L622">        }</span>
+
+        public int getNumThreads() {
+<span class="nc" id="L625">            return numThreads;</span>
+        }
+
+        public void setNumThreads(int numThreads) {
+<span class="nc" id="L629">            this.numThreads = numThreads;</span>
+<span class="nc" id="L630">        }</span>
+    }
+
+<span class="nc" id="L633">    public static class ControllerConfig {</span>
+        private int numUpdateThreads;
+        private int numMatchThreads;
+        private boolean autoPlacement;
+        private boolean useIPForIndex;
+        private int index;
+        private Map&lt;String, Segments&gt; segments;
+        private List&lt;String&gt; clusterRules;
+        private Map&lt;String, SegmentMemSize&gt; segmentMemSizes;
+        private int tenprintSegmentSize;
+        private int tenprintPalmSegmentSize;
+        private int tenprintFullPalmSegmentSize;
+        private int latentSegmentSize;
+        private int chunkSize;
+        private int maxParallelSegments;
+        private int semaphoreNumber;
+        private int maxParallelSegmentsPerDataServer;
+        private int maxMatchingQueue;
+        private int maxMatchingServerQueue;
+        private int matchingTaskTimeoutDuration;
+        private int matchingTaskTimeoutRestartCount;
+
+        private boolean tlScoreNormalization;
+        private boolean ltScoreNormalization;
+        private boolean ttScoreNormalization;
+
+        private double ltNormalizeTop1W;
+        private double ltNormalizeOffsetW;
+        private double ltNormalizeIntercept;
+        private int ltNormalizeTopK;
+        private double ltNormalizeThreshold;
+        private double ltNormalizeThresholdV5;
+        private double ltNormalizeOffset;
+
+        private double ttNormalizeW;
+        private double ttNormalizeR;
+        private double ttNormalizeB;
+
+        private boolean tlFingerScoreNormalization;
+        private int tlFingerScoreNormalizationTopk;
+        private int tlFingerScoreNormalizationTopkMean;
+
+        private double tlNormalizeTop1W;
+        private double tlNormalizeOffsetW;
+        private double tlNormalizeIntercept;
+        private int tlNormalizeTopK;
+        private double tlNormalizeThreshold;
+        private double tlNormalizeOffset;
+
+        private boolean dynamicalNormalization;   // normalization will depend on top1-topK offset
+
+        // rescale auto / mixed / expert_only
+        private boolean useRescale;
+        private double autoRescaleK;
+        private double autoRescaleB;
+        private double mixedRescaleK;
+        private double mixedRescaleB;
+        private double expertOnlyRescaleK;
+        private double expertOnlyRescaleB;
+
+        private int extractionDatabaseQueueLimit;
+        private int extractionDatabaseTimeout;
+
+        private boolean rerunTask;
+        private int fusionTopk;
+        private boolean createTable;
+        private int expectServerNum;
+        private boolean segmentRebalance;
+        private boolean defaultOnly; // used for test
+        private boolean autoBatchUpdate;
+        private int updateCheckDuration;
+        private boolean buildAllSegments;
+        private boolean buildNonValidSegments;
+        private boolean useJ2kForExtraction;
+
+        private int sshPort;
+        private int waitMatchingServerTimeout;
+
+        private int opPort;
+        private boolean importMode;
+        private boolean skipPalmExtraction;
+        private List&lt;String&gt; ignoreDBList;
+        private List&lt;String&gt; buildSegmentsDBList;
+        private int maxTenprintSegments;
+        private boolean confirmationService;
+        private boolean atLeast200Candidate;
+        private boolean useConsul;
+        private String k8sNamespace;
+        private String k8sDeployName;
+        private boolean useFullPalm;
+        private boolean buildFullPalmOnly;
+        private String autoRebuildSegments;
+
+        public double getLtNormalizeThresholdV5() {
+<span class="nc" id="L727">            return ltNormalizeThresholdV5;</span>
+        }
+
+        public void setLtNormalizeThresholdV5(double ltNormalizeThresholdV5) {
+<span class="nc" id="L731">            this.ltNormalizeThresholdV5 = ltNormalizeThresholdV5;</span>
+<span class="nc" id="L732">        }</span>
+
+        public boolean isAtLeast200Candidate() {
+<span class="nc" id="L735">            return atLeast200Candidate;</span>
+        }
+
+        public void setAtLeast200Candidate(boolean atLeast200Candidate) {
+<span class="nc" id="L739">            this.atLeast200Candidate = atLeast200Candidate;</span>
+<span class="nc" id="L740">        }</span>
+
+        public String getAutoRebuildSegments() {
+<span class="nc" id="L743">            return autoRebuildSegments;</span>
+        }
+
+        public void setAutoRebuildSegments(String autoRebuildSegments) {
+<span class="nc" id="L747">            this.autoRebuildSegments = autoRebuildSegments;</span>
+<span class="nc" id="L748">        }</span>
+
+        public int getNumUpdateThreads() {
+<span class="nc" id="L751">            return numUpdateThreads;</span>
+        }
+
+        public void setNumUpdateThreads(int numUpdateThreads) {
+<span class="nc" id="L755">            this.numUpdateThreads = numUpdateThreads;</span>
+<span class="nc" id="L756">        }</span>
+
+        public int getNumMatchThreads() {
+<span class="nc" id="L759">            return numMatchThreads;</span>
+        }
+
+        public void setNumMatchThreads(int numMatchThreads) {
+<span class="nc" id="L763">            this.numMatchThreads = numMatchThreads;</span>
+<span class="nc" id="L764">        }</span>
+
+        public boolean isAutoPlacement() {
+<span class="nc" id="L767">            return autoPlacement;</span>
+        }
+
+        public void setAutoPlacement(boolean autoPlacement) {
+<span class="nc" id="L771">            this.autoPlacement = autoPlacement;</span>
+<span class="nc" id="L772">        }</span>
+
+        public int getIndex() {
+<span class="nc" id="L775">            return index;</span>
+        }
+
+        public void setIndex(int index) {
+<span class="nc" id="L779">            this.index = index;</span>
+<span class="nc" id="L780">        }</span>
+
+        public int getTenprintSegmentSize() {
+<span class="nc" id="L783">            return tenprintSegmentSize;</span>
+        }
+
+        public void setTenprintSegmentSize(int tenprintSegmentSize) {
+<span class="nc" id="L787">            this.tenprintSegmentSize = tenprintSegmentSize;</span>
+<span class="nc" id="L788">        }</span>
+
+        public int getTenprintPalmSegmentSize() {
+<span class="nc" id="L791">            return tenprintPalmSegmentSize;</span>
+        }
+
+        public void setTenprintPalmSegmentSize(int tenprintPalmSegmentSize) {
+<span class="nc" id="L795">            this.tenprintPalmSegmentSize = tenprintPalmSegmentSize;</span>
+<span class="nc" id="L796">        }</span>
+
+        public int getTenprintFullPalmSegmentSize() {
+<span class="nc" id="L799">            return tenprintFullPalmSegmentSize;</span>
+        }
+
+        public void setTenprintFullPalmSegmentSize(int tenprintFullPalmSegmentSize) {
+<span class="nc" id="L803">            this.tenprintFullPalmSegmentSize = tenprintFullPalmSegmentSize;</span>
+<span class="nc" id="L804">        }</span>
+
+
+        public int getLatentSegmentSize() {
+<span class="nc" id="L808">            return latentSegmentSize;</span>
+        }
+
+        public void setLatentSegmentSize(int latentSegmentSize) {
+<span class="nc" id="L812">            this.latentSegmentSize = latentSegmentSize;</span>
+<span class="nc" id="L813">        }</span>
+
+        public int getChunkSize() {
+<span class="nc" id="L816">            return chunkSize;</span>
+        }
+
+        public void setChunkSize(int chunkSize) {
+<span class="nc" id="L820">            this.chunkSize = chunkSize;</span>
+<span class="nc" id="L821">        }</span>
+
+        public int getMaxParallelSegments() {
+<span class="nc" id="L824">            return maxParallelSegments;</span>
+        }
+
+        public void setMaxParallelSegments(int maxParallelSegments) {
+<span class="nc" id="L828">            this.maxParallelSegments = maxParallelSegments;</span>
+<span class="nc" id="L829">        }</span>
+
+<span class="nc" id="L831">        public int getSemaphoreNumber() { return semaphoreNumber; }</span>
+
+        public void setSemaphoreNumber(int semaphoreNumber) {
+<span class="nc" id="L834">            this.semaphoreNumber = semaphoreNumber;</span>
+<span class="nc" id="L835">        }</span>
+
+        public int getMaxMatchingQueue() {
+<span class="nc" id="L838">            return maxMatchingQueue;</span>
+        }
+
+        public void setMaxMatchingQueue(int maxMatchingQueue) {
+<span class="nc" id="L842">            this.maxMatchingQueue = maxMatchingQueue;</span>
+<span class="nc" id="L843">        }</span>
+
+        public int getMaxMatchingServerQueue() {
+<span class="nc" id="L846">            return maxMatchingServerQueue;</span>
+        }
+
+        public void setMaxMatchingServerQueue(int maxMatchingServerQueue) {
+<span class="nc" id="L850">            this.maxMatchingServerQueue = maxMatchingServerQueue;</span>
+<span class="nc" id="L851">        }</span>
+
+        public int getMatchingTaskTimeoutDuration() {
+<span class="nc" id="L854">            return this.matchingTaskTimeoutDuration;</span>
+        }
+
+        public void setMatchingTaskTimeoutDuration(int matchingTaskTimeoutDuration) {
+<span class="nc" id="L858">            this.matchingTaskTimeoutDuration = matchingTaskTimeoutDuration;</span>
+<span class="nc" id="L859">        }</span>
+
+        public int getMatchingTaskTimeoutRestartCount() {
+<span class="nc" id="L862">            return this.matchingTaskTimeoutRestartCount;</span>
+        }
+
+        public void setMatchingTaskTimeoutRestartCount(int matchingTaskTimeoutRestartCount) {
+<span class="nc" id="L866">            this.matchingTaskTimeoutRestartCount = matchingTaskTimeoutRestartCount;</span>
+<span class="nc" id="L867">        }</span>
+
+        public boolean isTlScoreNormalization() {
+<span class="nc" id="L870">            return tlScoreNormalization;</span>
+        }
+
+        public void setTlScoreNormalization(boolean tlScoreNormalization) {
+<span class="nc" id="L874">            this.tlScoreNormalization = tlScoreNormalization;</span>
+<span class="nc" id="L875">        }</span>
+
+        public boolean isLtScoreNormalization() {
+<span class="nc" id="L878">            return ltScoreNormalization;</span>
+        }
+
+        public void setLtScoreNormalization(boolean ltScoreNormalization) {
+<span class="nc" id="L882">            this.ltScoreNormalization = ltScoreNormalization;</span>
+<span class="nc" id="L883">        }</span>
+
+        public boolean isTtScoreNormalization() {
+<span class="nc" id="L886">            return this.ttScoreNormalization;</span>
+        }
+
+        public void setTtScoreNormalization(boolean ttScoreNormalization) {
+<span class="nc" id="L890">            this.ttScoreNormalization = ttScoreNormalization;</span>
+<span class="nc" id="L891">        }</span>
+
+<span class="nc" id="L893">        public boolean isDynamicalNormalization(){ return this.dynamicalNormalization; }</span>
+
+        public void setDynamicalNormalization(boolean dynamicalNormalization) {
+<span class="nc" id="L896">            this.dynamicalNormalization = dynamicalNormalization;</span>
+<span class="nc" id="L897">        }</span>
+
+        public double getLtNormalizeTop1W(){
+<span class="nc" id="L900">            return ltNormalizeTop1W;</span>
+        }
+
+        public void setLtNormalizeTop1W(double ltNormalizeTop1W){
+<span class="nc" id="L904">            this.ltNormalizeTop1W = ltNormalizeTop1W;</span>
+<span class="nc" id="L905">        }</span>
+
+        public double getLtNormalizeOffsetW(){
+<span class="nc" id="L908">            return ltNormalizeOffsetW;</span>
+        }
+
+        public void setLtNormalizeOffsetW(double ltNormalizeOffsetW){
+<span class="nc" id="L912">            this.ltNormalizeOffsetW = ltNormalizeOffsetW;</span>
+<span class="nc" id="L913">        }</span>
+
+        public double getLtNormalizeIntercept(){
+<span class="nc" id="L916">            return ltNormalizeIntercept;</span>
+        }
+
+        public void setLtNormalizeIntercept(double ltNormalizeIntercept){
+<span class="nc" id="L920">            this.ltNormalizeIntercept = ltNormalizeIntercept;</span>
+<span class="nc" id="L921">        }</span>
+
+        public int getLtNormalizeTopK(){
+<span class="nc" id="L924">            return ltNormalizeTopK;</span>
+        }
+
+        public void setLtNormalizeTopK(int ltNormalizeTopK){
+<span class="nc" id="L928">            this.ltNormalizeTopK = ltNormalizeTopK;</span>
+<span class="nc" id="L929">        }</span>
+
+        public double getLtNormalizeThreshold(){
+<span class="nc" id="L932">            return ltNormalizeThreshold;</span>
+        }
+
+        public void setLtNormalizeThreshold(double ltNormalizeThreshold){
+<span class="nc" id="L936">            this.ltNormalizeThreshold = ltNormalizeThreshold;</span>
+<span class="nc" id="L937">        }</span>
+
+        public double getLtNormalizeOffset(){
+<span class="nc" id="L940">            return this.ltNormalizeOffset;</span>
+        }
+
+        public void setLtNormalizeOffset(double ltNormalizeOffset){
+<span class="nc" id="L944">            this.ltNormalizeOffset = ltNormalizeOffset;</span>
+<span class="nc" id="L945">        }</span>
+
+        public boolean isTlFingerScoreNormalization() {
+<span class="nc" id="L948">            return tlFingerScoreNormalization;</span>
+        }
+
+        public void setTlFingerScoreNormalization(boolean tlFingerScoreNormalization) {
+<span class="nc" id="L952">            this.tlFingerScoreNormalization = tlFingerScoreNormalization;</span>
+<span class="nc" id="L953">        }</span>
+
+        public int getTlFingerScoreNormalizationTopk() {
+<span class="nc" id="L956">            return tlFingerScoreNormalizationTopk;</span>
+        }
+
+        public void setTlFingerScoreNormalizationTopk(int tlFingerScoreNormalizationTopk) {
+<span class="nc" id="L960">            this.tlFingerScoreNormalizationTopk = tlFingerScoreNormalizationTopk;</span>
+<span class="nc" id="L961">        }</span>
+
+        public int getTlFingerScoreNormalizationTopkMean() {
+<span class="nc" id="L964">            return tlFingerScoreNormalizationTopkMean;</span>
+        }
+
+        public void setTlFingerScoreNormalizationTopkMean(int tlFingerScoreNormalizationTopkMean) {
+<span class="nc" id="L968">            this.tlFingerScoreNormalizationTopkMean = tlFingerScoreNormalizationTopkMean;</span>
+<span class="nc" id="L969">        }</span>
+
+        public double getTtNormalizeW(){
+<span class="nc" id="L972">            return this.ttNormalizeW;</span>
+        }
+
+        public void setTtNormalizeW(double ttNormalizeW){
+<span class="nc" id="L976">            this.ttNormalizeW = ttNormalizeW;</span>
+<span class="nc" id="L977">        }</span>
+
+        public double getTtNormalizeR(){
+<span class="nc" id="L980">            return this.ttNormalizeR;</span>
+        }
+
+        public void setTtNormalizeR(double ttNormalizeR){
+<span class="nc" id="L984">            this.ttNormalizeR = ttNormalizeR;</span>
+<span class="nc" id="L985">        }</span>
+
+        public double getTtNormalizeB(){
+<span class="nc" id="L988">            return this.ttNormalizeB;</span>
+        }
+
+        public void setTtNormalizeB(double ttNormalizeB){
+<span class="nc" id="L992">            this.ttNormalizeB = ttNormalizeB;</span>
+<span class="nc" id="L993">        }</span>
+
+        public double getTlNormalizeTop1W(){
+<span class="nc" id="L996">            return tlNormalizeTop1W;</span>
+        }
+
+        public void setTlNormalizeTop1W(double tlNormalizeTop1W){
+<span class="nc" id="L1000">            this.tlNormalizeTop1W = tlNormalizeTop1W;</span>
+<span class="nc" id="L1001">        }</span>
+
+        public double getTlNormalizeOffsetW(){
+<span class="nc" id="L1004">            return tlNormalizeOffsetW;</span>
+        }
+
+        public void setTlNormalizeOffsetW(double tlNormalizeOffsetW){
+<span class="nc" id="L1008">            this.tlNormalizeOffsetW = tlNormalizeOffsetW;</span>
+<span class="nc" id="L1009">        }</span>
+
+        public double getTlNormalizeIntercept(){
+<span class="nc" id="L1012">            return tlNormalizeIntercept;</span>
+        }
+
+        public void setTlNormalizeIntercept(double tlNormalizeIntercept){
+<span class="nc" id="L1016">            this.tlNormalizeIntercept = tlNormalizeIntercept;</span>
+<span class="nc" id="L1017">        }</span>
+
+        public int getTlNormalizeTopK(){
+<span class="nc" id="L1020">            return tlNormalizeTopK;</span>
+        }
+
+        public void setTlNormalizeTopK(int tlNormalizeTopK){
+<span class="nc" id="L1024">            this.tlNormalizeTopK = tlNormalizeTopK;</span>
+<span class="nc" id="L1025">        }</span>
+
+        public double getTlNormalizeThreshold(){
+<span class="nc" id="L1028">            return tlNormalizeThreshold;</span>
+        }
+
+        public void setTlNormalizeThreshold(double tlNormalizeThreshold){
+<span class="nc" id="L1032">            this.tlNormalizeThreshold = tlNormalizeThreshold;</span>
+<span class="nc" id="L1033">        }</span>
+
+        public double getTlNormalizeOffset(){
+<span class="nc" id="L1036">            return this.tlNormalizeOffset;</span>
+        }
+
+        public void setTlNormalizeOffset(double tlNormalizeOffset) {
+<span class="nc" id="L1040">            this.tlNormalizeOffset = tlNormalizeOffset;</span>
+<span class="nc" id="L1041">        }</span>
+
+        public boolean isUseRescale() {
+<span class="nc" id="L1044">            return this.useRescale;</span>
+        }
+
+        public void setUseRescale(boolean useRescale) {
+<span class="nc" id="L1048">            this.useRescale = useRescale;</span>
+<span class="nc" id="L1049">        }</span>
+
+        public double getAutoRescaleK() {
+<span class="nc" id="L1052">            return this.autoRescaleK;</span>
+        }
+
+        public void setAutoRescaleK(double k) {
+<span class="nc" id="L1056">            this.autoRescaleK = k;</span>
+<span class="nc" id="L1057">        }</span>
+
+        public double getAutoRescaleB() {
+<span class="nc" id="L1060">            return this.autoRescaleB;</span>
+        }
+
+        public void setAutoRescaleB(double b) {
+<span class="nc" id="L1064">            this.autoRescaleB = b;</span>
+<span class="nc" id="L1065">        }</span>
+
+        public double getMixedRescaleK() {
+<span class="nc" id="L1068">            return this.mixedRescaleK;</span>
+        }
+
+        public void setMixedRescaleK(double k) {
+<span class="nc" id="L1072">            this.mixedRescaleK = k;</span>
+<span class="nc" id="L1073">        }</span>
+
+        public double getMixedRescaleB() {
+<span class="nc" id="L1076">            return this.mixedRescaleB;</span>
+        }
+
+        public void setMixedRescaleB(double b) {
+<span class="nc" id="L1080">            this.mixedRescaleB = b;</span>
+<span class="nc" id="L1081">        }</span>
+
+        public double getExpertOnlyRescaleK() {
+<span class="nc" id="L1084">            return this.expertOnlyRescaleK;</span>
+        }
+
+        public void setExpertOnlyRescaleK(double k) {
+<span class="nc" id="L1088">            this.expertOnlyRescaleK = k;</span>
+<span class="nc" id="L1089">        }</span>
+
+        public double getExpertOnlyRescaleB() {
+<span class="nc" id="L1092">            return this.expertOnlyRescaleB;</span>
+        }
+
+        public void setExpertOnlyRescaleB(double b) {
+<span class="nc" id="L1096">            this.expertOnlyRescaleB = b;</span>
+<span class="nc" id="L1097">        }</span>
+
+        public int getExtractionDatabaseQueueLimit() {
+<span class="nc" id="L1100">            return extractionDatabaseQueueLimit;</span>
+        }
+
+        public void setExtractionDatabaseQueueLimit(int extractionDatabaseQueueLimit) {
+<span class="nc" id="L1104">            this.extractionDatabaseQueueLimit = extractionDatabaseQueueLimit;</span>
+<span class="nc" id="L1105">        }</span>
+
+        public int getExtractionDatabaseTimeout() {
+<span class="nc" id="L1108">            return extractionDatabaseTimeout;</span>
+        }
+
+        public void setExtractionDatabaseTimeout(int extractionDatabaseTimeout) {
+<span class="nc" id="L1112">            this.extractionDatabaseTimeout = extractionDatabaseTimeout;</span>
+<span class="nc" id="L1113">        }</span>
+
+        public boolean isRerunTask() {
+<span class="nc" id="L1116">            return rerunTask;</span>
+        }
+
+        public void setRerunTask(boolean rerunTask) {
+<span class="nc" id="L1120">            this.rerunTask = rerunTask;</span>
+<span class="nc" id="L1121">        }</span>
+
+        public int getFusionTopk() {
+<span class="nc" id="L1124">            return fusionTopk;</span>
+        }
+
+        public void setFusionTopk(int fusionTopk) {
+<span class="nc" id="L1128">            this.fusionTopk = fusionTopk;</span>
+<span class="nc" id="L1129">        }</span>
+
+        public Map&lt;String, Segments&gt; getSegments() {
+<span class="nc" id="L1132">            return segments;</span>
+        }
+
+        public void setSegments(Map&lt;String, Object&gt; segments) {
+<span class="nc" id="L1136">            this.segments = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L1137">            segments.forEach((k, v) -&gt; {</span>
+<span class="nc" id="L1138">                HashMap&lt;String, List&lt;Integer&gt;&gt; value = (HashMap&lt;String, List&lt;Integer&gt;&gt;) v;</span>
+<span class="nc" id="L1139">                this.segments.put(k, new Segments(new CopyOnWriteArrayList&lt;&gt;(value.get(&quot;tenprint&quot;)),</span>
+<span class="nc" id="L1140">                        new CopyOnWriteArrayList&lt;&gt;(value.get(&quot;latent&quot;))));</span>
+<span class="nc" id="L1141">            });</span>
+<span class="nc" id="L1142">        }</span>
+
+        public List&lt;String&gt; getClusterRules() {
+<span class="nc" id="L1145">            return clusterRules;</span>
+        }
+
+        public void setClusterRules(List&lt;String&gt; clusterRules) {
+<span class="nc" id="L1149">            this.clusterRules = clusterRules;</span>
+<span class="nc" id="L1150">        }</span>
+
+        public Map&lt;String, SegmentMemSize&gt; getSegmentMemSizes() {
+<span class="nc" id="L1153">            return segmentMemSizes;</span>
+        }
+
+
+
+        public int getMaxParallelSegmentsPerDataServer() {
+<span class="nc" id="L1159">            return maxParallelSegmentsPerDataServer;</span>
+        }
+
+        public void setMaxParallelSegmentsPerDataServer(int maxParallelSegmentsPerDataServer) {
+<span class="nc" id="L1163">            this.maxParallelSegmentsPerDataServer = maxParallelSegmentsPerDataServer;</span>
+<span class="nc" id="L1164">        }</span>
+
+        public boolean isCreateTable() {
+<span class="nc" id="L1167">            return createTable;</span>
+        }
+
+        public void setCreateTable(boolean createTable) {
+<span class="nc" id="L1171">            this.createTable = createTable;</span>
+<span class="nc" id="L1172">        }</span>
+
+<span class="nc" id="L1174">        public int getExpectServerNum() { return expectServerNum; }</span>
+
+<span class="nc" id="L1176">        public void setExpectServerNum(int serverNum) { this.expectServerNum = serverNum; }</span>
+
+<span class="nc" id="L1178">        public boolean isSegmentRebalance() { return segmentRebalance; }</span>
+
+        public void setSegmentRebalance(boolean segmentRebalance) {
+<span class="nc" id="L1181">            this.segmentRebalance = segmentRebalance;</span>
+<span class="nc" id="L1182">        }</span>
+
+<span class="nc" id="L1184">        public boolean isDefaultOnly() { return defaultOnly; }</span>
+
+<span class="nc" id="L1186">        public void setDefaultOnly(boolean defaultOnly) { this.defaultOnly = defaultOnly; }</span>
+
+<span class="nc" id="L1188">        public int getUpdateCheckDuration() { return updateCheckDuration; }</span>
+
+<span class="nc" id="L1190">        public void setUpdateCheckDuration(int duration) { this.updateCheckDuration = duration; }</span>
+
+<span class="nc" id="L1192">        public boolean isAutoBatchUpdate() { return autoBatchUpdate; }</span>
+
+        public void setAutoBatchUpdate(boolean autoBatchUpdate) {
+<span class="nc" id="L1195">            this.autoBatchUpdate = autoBatchUpdate;</span>
+<span class="nc" id="L1196">        }</span>
+
+<span class="nc" id="L1198">        public boolean isBuildNonValidSegments() { return buildNonValidSegments; }</span>
+
+        public void setBuildNonValidSegments(boolean buildNonValidSegments) {
+<span class="nc" id="L1201">            this.buildNonValidSegments = buildNonValidSegments;</span>
+<span class="nc" id="L1202">        }</span>
+
+<span class="nc" id="L1204">        public boolean isBuildAllSegments() { return buildAllSegments; }</span>
+
+        public void setBuildAllSegments(boolean buildAllSegments) {
+<span class="nc" id="L1207">            this.buildAllSegments = buildAllSegments;</span>
+<span class="nc" id="L1208">        }</span>
+
+<span class="nc" id="L1210">        public boolean isUseJ2kForExtraction() { return useJ2kForExtraction; }</span>
+
+        public void setUseJ2kForExtraction(boolean useJ2kForExtraction) {
+<span class="nc" id="L1213">            this.useJ2kForExtraction = useJ2kForExtraction;</span>
+<span class="nc" id="L1214">        }</span>
+
+<span class="nc" id="L1216">        public int getSshPort() { return sshPort; }</span>
+
+        public void setSshPort(int sshPort) {
+<span class="nc" id="L1219">            this.sshPort = sshPort;</span>
+<span class="nc" id="L1220">        }</span>
+
+<span class="nc" id="L1222">        public int getWaitMatchingServerTimeout() { return waitMatchingServerTimeout; }</span>
+
+        public void setWaitMatchingServerTimeout(int waitMatchingServerTimeout) {
+<span class="nc" id="L1225">            this.waitMatchingServerTimeout = waitMatchingServerTimeout;</span>
+<span class="nc" id="L1226">        }</span>
+
+        public void setUseIPForIndex(boolean useIPForIndex) {
+<span class="nc" id="L1229">            this.useIPForIndex = useIPForIndex;</span>
+<span class="nc" id="L1230">        }</span>
+
+        public boolean isUseIPForIndex() {
+<span class="nc" id="L1233">            return useIPForIndex;</span>
+        }
+
+        public void setOpPort(int opPort) {
+<span class="nc" id="L1237">            this.opPort = opPort;</span>
+<span class="nc" id="L1238">        }</span>
+
+        public int getOpPort() {
+<span class="nc" id="L1241">            return opPort;</span>
+        }
+
+<span class="nc" id="L1244">        public void setImportMode(boolean importMode) { this.importMode = importMode; }</span>
+
+<span class="nc" id="L1246">        public boolean isImportMode() { return importMode; }</span>
+
+<span class="nc" id="L1248">        public void setSkipPalmExtraction(boolean skipPalmExtraction) { this.skipPalmExtraction = skipPalmExtraction; }</span>
+
+<span class="nc" id="L1250">        public boolean isSkipPalmExtraction() { return skipPalmExtraction; }</span>
+
+        public List&lt;String&gt; getIgnoreDBList() {
+<span class="nc" id="L1253">            return ignoreDBList;</span>
+        }
+
+        public void setIgnoreDBList(List&lt;String&gt; ignoreDBList) {
+<span class="nc" id="L1257">            this.ignoreDBList = ignoreDBList;</span>
+<span class="nc" id="L1258">        }</span>
+
+        public List&lt;String&gt; getBuildSegmentsDBList() {
+<span class="nc" id="L1261">            return buildSegmentsDBList;</span>
+        }
+
+        public void setBuildSegmentsDBList(List&lt;String&gt; buildSegmentsDBList) {
+<span class="nc" id="L1265">            this.buildSegmentsDBList = buildSegmentsDBList;</span>
+<span class="nc" id="L1266">        }</span>
+
+<span class="nc" id="L1268">        public int getMaxTenprintSegments() { return maxTenprintSegments; }</span>
+
+        public void setMaxTenprintSegments(int maxTenprintSegments) {
+<span class="nc" id="L1271">            this.maxTenprintSegments = maxTenprintSegments;</span>
+<span class="nc" id="L1272">        }</span>
+
+        public boolean isConfirmationService() {
+<span class="nc" id="L1275">            return confirmationService;</span>
+        }
+
+        public void setConfirmationService(boolean confirmationService) {
+<span class="nc" id="L1279">            this.confirmationService = confirmationService;</span>
+<span class="nc" id="L1280">        }</span>
+
+<span class="nc" id="L1282">        public boolean isUseConsul(){return useConsul;}</span>
+
+        public void setUseConsul(boolean useConsul){
+<span class="nc" id="L1285">            this.useConsul = useConsul;</span>
+<span class="nc" id="L1286">        }</span>
+
+        public String getK8sNamespace(){
+<span class="nc" id="L1289">            return k8sNamespace;</span>
+        }
+
+        public void setK8sNamespace(String k8sNamespace){
+<span class="nc" id="L1293">            this.k8sNamespace =k8sNamespace;</span>
+<span class="nc" id="L1294">        }</span>
+
+        public String getK8sDeployName(){
+<span class="nc" id="L1297">            return k8sDeployName;</span>
+        }
+
+        public void setK8sDeployName(String k8sDeployName) {
+<span class="nc" id="L1301">            this.k8sDeployName = k8sDeployName;</span>
+<span class="nc" id="L1302">        }</span>
+
+<span class="nc" id="L1304">        public boolean isUseFullPalm() { return useFullPalm; }</span>
+
+<span class="nc" id="L1306">        public void setUseFullPalm(boolean useFullPalm) { this.useFullPalm = useFullPalm; }</span>
+
+<span class="nc" id="L1308">        public boolean isBuildFullPalmOnly() { return buildFullPalmOnly; }</span>
+
+<span class="nc" id="L1310">        public void setBuildFullPalmOnly(boolean buildFullPalmOnly) { this.buildFullPalmOnly = buildFullPalmOnly; }</span>
+    }
+
+<span class="nc" id="L1313">    public static class FptConfig {</span>
+        private boolean useRoundRobin;
+        private boolean useConsul;
+        private boolean useLinux;
+        private boolean useWindows;
+        private boolean useK8s;
+
+        public boolean isUseRoundRobin() {
+<span class="nc" id="L1321">            return useRoundRobin;</span>
+        }
+
+        public void setUseRoundRobin(boolean useRoundRobin) {
+<span class="nc" id="L1325">            this.useRoundRobin = useRoundRobin;</span>
+<span class="nc" id="L1326">        }</span>
+
+        public boolean isUseConsul() {
+<span class="nc" id="L1329">            return useConsul;</span>
+        }
+
+        public void setUseConsul(boolean useConsul) {
+<span class="nc" id="L1333">            this.useConsul = useConsul;</span>
+<span class="nc" id="L1334">        }</span>
+
+        public boolean isUseLinux() {
+<span class="nc" id="L1337">            return useLinux;</span>
+        }
+
+        public void setUseLinux(boolean useLinux) {
+<span class="nc" id="L1341">            this.useLinux = useLinux;</span>
+<span class="nc" id="L1342">        }</span>
+
+        public boolean isUseWindows() {
+<span class="nc" id="L1345">            return useWindows;</span>
+        }
+
+        public void setUseWindows(boolean useWindows) {
+<span class="nc" id="L1349">            this.useWindows = useWindows;</span>
+<span class="nc" id="L1350">        }</span>
+
+        public boolean isUseK8s() {
+<span class="nc" id="L1353">            return useK8s;</span>
+        }
+
+        public void setUseK8s(boolean useK8s) {
+<span class="nc" id="L1357">            this.useK8s = useK8s;</span>
+<span class="nc" id="L1358">        }</span>
+    }
+
+
+
+<span class="nc" id="L1363">    public void setUseRedisCluster(boolean useRedisCluster) { this.useRedisCluster = useRedisCluster; }</span>
+
+<span class="nc" id="L1365">    public boolean isUseRedisCluster() { return useRedisCluster; }</span>
+
+<span class="nc" id="L1367">    public static class PalmConfig {</span>
+        private double resizeRatio;
+        private int prepSize;
+        private int latentSize;
+        private int tenprintSize;
+        private int latentStride;
+        private int tenprintStride;
+        private List&lt;Integer&gt; latentRotationInfo;
+        private int maxImageLength;
+        private int maxImageSize;
+        private int ttpNormalizeFactor;
+        private double ttpScoreThreshold;
+
+<span class="nc" id="L1380">        public double getResizeRatio() { return resizeRatio; }</span>
+
+<span class="nc" id="L1382">        public void setResizeRatio(double resizeRatio) { this.resizeRatio = resizeRatio; }</span>
+
+<span class="nc" id="L1384">        public int getPrepSize() { return prepSize; }</span>
+
+<span class="nc" id="L1386">        public void setPrepSize(int prepSize) { this.prepSize = prepSize; }</span>
+
+<span class="nc" id="L1388">        public int getLatentSize() { return latentSize; }</span>
+
+<span class="nc" id="L1390">        public void setLatentSize(int size) { this.latentSize = size; }</span>
+
+<span class="nc" id="L1392">        public int getTenprintSize() { return tenprintSize; }</span>
+
+<span class="nc" id="L1394">        public void setTenprintSize(int size) { this.tenprintSize = size; }</span>
+
+<span class="nc" id="L1396">        public int getLatentStride() { return latentStride; }</span>
+
+<span class="nc" id="L1398">        public void setLatentStride(int stride) { this.latentStride = stride; }</span>
+
+<span class="nc" id="L1400">        public int getTenprintStride() { return tenprintStride; }</span>
+
+<span class="nc" id="L1402">        public void setTenprintStride(int stride) { this.tenprintStride = stride; }</span>
+
+<span class="nc" id="L1404">        public List&lt;Integer&gt; getLatentRotationInfo() { return latentRotationInfo; }</span>
+
+        public void setLatentRotationInfo(List&lt;Integer&gt; latentRotationInfo) {
+<span class="nc" id="L1407">            this.latentRotationInfo = latentRotationInfo;</span>
+<span class="nc" id="L1408">        }</span>
+
+<span class="nc" id="L1410">        public int getMaxImageLength() { return maxImageLength; }</span>
+
+<span class="nc" id="L1412">        public void setMaxImageLength(int maxImageLength) { this.maxImageLength = maxImageLength; }</span>
+
+<span class="nc" id="L1414">        public int getMaxImageSize() { return maxImageSize; }</span>
+
+<span class="nc" id="L1416">        public void setMaxImageSize(int maxImageSize) { this.maxImageSize = maxImageSize; }</span>
+
+<span class="nc" id="L1418">        public int getTtpNormalizeFactor() { return ttpNormalizeFactor; }</span>
+
+        public void setTtpNormalizeFactor(int ttpNormalizeFactor) {
+<span class="nc" id="L1421">            this.ttpNormalizeFactor = ttpNormalizeFactor;</span>
+<span class="nc" id="L1422">        }</span>
+
+<span class="nc" id="L1424">        public double getTtpScoreThreshold() { return ttpScoreThreshold; }</span>
+
+        public void setTtpScoreThreshold(double ttpScoreThreshold) {
+<span class="nc" id="L1427">            this.ttpScoreThreshold = ttpScoreThreshold;</span>
+<span class="nc" id="L1428">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
